@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>FC Alameda | App Local de Gestión</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body{margin:0;font-family:Arial;background:#f4f6f8;color:#333}
-    header{background:#0b5ed7;color:white;padding:20px;text-align:center}
-    nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
-    nav button{background:none;border:none;color:white;padding:15px 20px;font-size:15px;font-weight:bold;cursor:pointer}
-    nav button:hover{background:#0b5ed7}
-    section{display:none;padding:20px;max-width:1200px;margin:auto}
-    section.active{display:block}
-    table{width:100%;border-collapse:collapse;background:white;margin-top:15px}
-    th,td{border:1px solid #ccc;padding:8px;text-align:center}
-    th{background:#e9ecef}
-    h2{color:#0b5ed7}
-  </style>
+<meta charset="UTF-8">
+<title>FC Alameda | Gestión Completa</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#333}
+  header{background:linear-gradient(135deg,#0b5ed7,#083c8c);color:white;padding:30px;text-align:center}
+  header h1{margin:0;font-size:2.5em}
+  header p{margin:5px 0 0;font-size:1.2em}
+  nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
+  nav button{background:none;border:none;color:white;padding:15px 25px;font-size:16px;font-weight:bold;cursor:pointer;transition:0.3s}
+  nav button:hover{background:#0b5ed7}
+  section{display:none;padding:30px;max-width:1200px;margin:auto}
+  section.active{display:block}
+  h2{color:#0b5ed7;margin-bottom:15px;text-align:center}
+  table{width:100%;border-collapse:collapse;background:white;margin-top:15px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+  th,td{border:1px solid #ddd;padding:10px;text-align:center}
+  th{background:#e9ecef}
+  tr:hover{background:#f1f1f1}
+  footer{background:#083c8c;color:white;text-align:center;padding:20px;margin-top:30px}
+</style>
 </head>
 <body>
 <header>
   <h1>FC Alameda</h1>
-  <p>Aplicación LOCAL de gestión del club</p>
+  <p>Aplicación local de gestión completa del club</p>
 </header>
-
 <nav>
   <button onclick="mostrar('presupuesto')">Presupuesto</button>
   <button onclick="mostrar('jugadores')">Jugadores</button>
@@ -33,58 +36,93 @@
 </nav>
 
 <section id="presupuesto" class="active">
-  <h2>Presupuesto del Equipo</h2>
-  <table>
-    <tr><th>Concepto</th><th>Importe (€)</th></tr>
-    <tr><td>Presupuesto Total</td><td>120.000</td></tr>
-    <tr><td>Salarios Jugadores</td><td>80.000</td></tr>
-    <tr><td>Gastos Generales</td><td>25.000</td></tr>
-    <tr><td>Beneficio</td><td>15.000</td></tr>
-  </table>
+<h2>Presupuesto del Equipo</h2>
+<table>
+<tr><th>Concepto</th><th>Importe (€)</th></tr>
+<tr><td>Presupuesto Total</td><td>250.000</td></tr>
+<tr><td>Salarios Jugadores</td><td>150.000</td></tr>
+<tr><td>Gastos Generales</td><td>60.000</td></tr>
+<tr><td>Beneficio</td><td>40.000</td></tr>
+<tr><td>Entradas</td><td>20.000</td></tr>
+<tr><td>Patrocinadores</td><td>30.000</td></tr>
+</table>
 </section>
 
 <section id="jugadores">
-  <h2>Jugadores y Salarios</h2>
-  <table>
-    <tr><th>Nombre</th><th>Posición</th><th>Salario Anual (€)</th></tr>
-    <tr><td>Jugador 1</td><td>Portero</td><td>8.000</td></tr>
-    <tr><td>Jugador 2</td><td>Defensa</td><td>6.000</td></tr>
-    <tr><td>Jugador 3</td><td>Delantero</td><td>10.000</td></tr>
-  </table>
+<h2>Plantilla - 22 Jugadores</h2>
+<table>
+<tr><th>Nombre</th><th>Posición</th><th>Salario Anual (€)</th></tr>
+<tr><td>Juan Pérez</td><td>Portero</td><td>8.000</td></tr>
+<tr><td>Carlos Gómez</td><td>Portero</td><td>7.500</td></tr>
+<tr><td>Andrés Ruiz</td><td>Defensa</td><td>6.000</td></tr>
+<tr><td>Diego Fernández</td><td>Defensa</td><td>6.500</td></tr>
+<tr><td>Luis Martínez</td><td>Defensa</td><td>6.200</td></tr>
+<tr><td>David López</td><td>Defensa</td><td>6.000</td></tr>
+<tr><td>Mario Sánchez</td><td>Centrocampista</td><td>7.000</td></tr>
+<tr><td>Javier Torres</td><td>Centrocampista</td><td>7.200</td></tr>
+<tr><td>Francisco Díaz</td><td>Centrocampista</td><td>7.000</td></tr>
+<tr><td>Pablo Ramírez</td><td>Centrocampista</td><td>7.100</td></tr>
+<tr><td>Sergio Morales</td><td>Centrocampista</td><td>7.300</td></tr>
+<tr><td>Alberto Jiménez</td><td>Delantero</td><td>10.000</td></tr>
+<tr><td>Raúl Castro</td><td>Delantero</td><td>9.500</td></tr>
+<tr><td>Fernando Ortiz</td><td>Delantero</td><td>9.800</td></tr>
+<tr><td>Ricardo Vázquez</td><td>Delantero</td><td>9.600</td></tr>
+<tr><td>Adrián Núñez</td><td>Delantero</td><td>9.700</td></tr>
+<tr><td>Óscar Herrera</td><td>Delantero</td><td>9.500</td></tr>
+<tr><td>Antonio Rubio</td><td>Delantero</td><td>9.400</td></tr>
+<tr><td>Jorge León</td><td>Centrocampista</td><td>7.000</td></tr>
+<tr><td>Iván Campos</td><td>Defensa</td><td>6.200</td></tr>
+<tr><td>Víctor Peña</td><td>Centrocampista</td><td>7.100</td></tr>
+<tr><td>Raquel Silva</td><td>Delantera</td><td>8.500</td></tr>
+</table>
 </section>
 
 <section id="partidos">
-  <h2>Calendario de Partidos</h2>
-  <table>
-    <tr><th>Fecha</th><th>Rival</th><th>Lugar</th></tr>
-    <tr><td>10/02/2026</td><td>CF Ejemplo</td><td>Local</td></tr>
-    <tr><td>17/02/2026</td><td>UD Ejemplo</td><td>Visitante</td></tr>
-  </table>
+<h2>Calendario de Partidos</h2>
+<table>
+<tr><th>Fecha</th><th>Rival</th><th>Lugar</th></tr>
+<tr><td>10/02/2026</td><td>CF Ejemplo</td><td>Local</td></tr>
+<tr><td>17/02/2026</td><td>UD Ejemplo</td><td>Visitante</td></tr>
+<tr><td>24/02/2026</td><td>AD Modelo</td><td>Local</td></tr>
+<tr><td>03/03/2026</td><td>CD Prueba</td><td>Visitante</td></tr>
+</table>
 </section>
 
 <section id="trofeos">
-  <h2>Trofeos Ganados</h2>
-  <table>
-    <tr><th>Año</th><th>Competición</th></tr>
-    <tr><td>2023</td><td>Liga Regional</td></tr>
-    <tr><td>2024</td><td>Copa Comarcal</td></tr>
-  </table>
+<h2>Trofeos Ganados</h2>
+<table>
+<tr><th>Año</th><th>Competición</th></tr>
+<tr><td>2023</td><td>Liga Regional</td></tr>
+<tr><td>2024</td><td>Copa Comarcal</td></tr>
+<tr><td>2025</td><td>Supercopa</td></tr>
+</table>
 </section>
 
 <section id="merchandising">
-  <h2>Merchandising</h2>
-  <table>
-    <tr><th>Producto</th><th>Precio (€)</th><th>Stock</th></tr>
-    <tr><td>Camiseta Oficial</td><td>35</td><td>120</td></tr>
-    <tr><td>Bufanda</td><td>15</td><td>200</td></tr>
-  </table>
+<h2>Merchandising</h2>
+<table>
+<tr><th>Producto</th><th>Precio (€)</th><th>Stock</th></tr>
+<tr><td>Camiseta Oficial</td><td>35</td><td>120</td></tr>
+<tr><td>Bufanda</td><td>15</td><td>200</td></tr>
+<tr><td>Gorra</td><td>20</td><td>150</td></tr>
+<tr><td>Balón Oficial</td><td>40</td><td>80</td></tr>
+<tr><td>Sudadera</td><td>50</td><td>100</td></tr>
+<tr><td>Póster Equipo</td><td>10</td><td>300</td></tr>
+<tr><td>Llavero</td><td>5</td><td>500</td></tr>
+<tr><td>Chándal Completo</td><td>80</td><td>60</td></tr>
+<tr><td>Calcetines</td><td>8</td><td>250</td></tr>
+<tr><td>Botella Agua</td><td>7</td><td>180</td></tr>
+</table>
 </section>
 
 <script>
-  function mostrar(id){
-    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
+function mostrar(id){
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 </script>
+<footer>
+<p>© 2026 FC Alameda - Aplicación Local de Gestión</p>
+</footer>
 </body>
 </html>
