@@ -2,75 +2,89 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>FC Alameda | Aplicación Local Oficial</title>
+  <title>FC Alameda | App Local de Gestión</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body{margin:0;font-family:Arial;background:#f4f6f8}
-    header{background:#0b5ed7;color:#fff;padding:20px;text-align:center}
-    nav{display:flex;flex-wrap:wrap;justify-content:center;background:#083c8c}
-    nav button{border:none;background:none;color:#fff;padding:15px 20px;font-weight:bold;cursor:pointer}
+    body{margin:0;font-family:Arial;background:#f4f6f8;color:#333}
+    header{background:#0b5ed7;color:white;padding:20px;text-align:center}
+    nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
+    nav button{background:none;border:none;color:white;padding:15px 20px;font-size:15px;font-weight:bold;cursor:pointer}
     nav button:hover{background:#0b5ed7}
     section{display:none;padding:20px;max-width:1200px;margin:auto}
     section.active{display:block}
-    table{width:100%;border-collapse:collapse;background:#fff}
+    table{width:100%;border-collapse:collapse;background:white;margin-top:15px}
     th,td{border:1px solid #ccc;padding:8px;text-align:center}
     th{background:#e9ecef}
+    h2{color:#0b5ed7}
   </style>
 </head>
 <body>
 <header>
   <h1>FC Alameda</h1>
-  <p>Aplicación LOCAL de gestión (datos cargados desde Excel)</p>
+  <p>Aplicación LOCAL de gestión del club</p>
 </header>
-<nav id="menu"></nav>
-<div id="contenido"></div>
+
+<nav>
+  <button onclick="mostrar('presupuesto')">Presupuesto</button>
+  <button onclick="mostrar('jugadores')">Jugadores</button>
+  <button onclick="mostrar('partidos')">Partidos</button>
+  <button onclick="mostrar('trofeos')">Trofeos</button>
+  <button onclick="mostrar('merchandising')">Merchandising</button>
+</nav>
+
+<section id="presupuesto" class="active">
+  <h2>Presupuesto del Equipo</h2>
+  <table>
+    <tr><th>Concepto</th><th>Importe (€)</th></tr>
+    <tr><td>Presupuesto Total</td><td>120.000</td></tr>
+    <tr><td>Salarios Jugadores</td><td>80.000</td></tr>
+    <tr><td>Gastos Generales</td><td>25.000</td></tr>
+    <tr><td>Beneficio</td><td>15.000</td></tr>
+  </table>
+</section>
+
+<section id="jugadores">
+  <h2>Jugadores y Salarios</h2>
+  <table>
+    <tr><th>Nombre</th><th>Posición</th><th>Salario Anual (€)</th></tr>
+    <tr><td>Jugador 1</td><td>Portero</td><td>8.000</td></tr>
+    <tr><td>Jugador 2</td><td>Defensa</td><td>6.000</td></tr>
+    <tr><td>Jugador 3</td><td>Delantero</td><td>10.000</td></tr>
+  </table>
+</section>
+
+<section id="partidos">
+  <h2>Calendario de Partidos</h2>
+  <table>
+    <tr><th>Fecha</th><th>Rival</th><th>Lugar</th></tr>
+    <tr><td>10/02/2026</td><td>CF Ejemplo</td><td>Local</td></tr>
+    <tr><td>17/02/2026</td><td>UD Ejemplo</td><td>Visitante</td></tr>
+  </table>
+</section>
+
+<section id="trofeos">
+  <h2>Trofeos Ganados</h2>
+  <table>
+    <tr><th>Año</th><th>Competición</th></tr>
+    <tr><td>2023</td><td>Liga Regional</td></tr>
+    <tr><td>2024</td><td>Copa Comarcal</td></tr>
+  </table>
+</section>
+
+<section id="merchandising">
+  <h2>Merchandising</h2>
+  <table>
+    <tr><th>Producto</th><th>Precio (€)</th><th>Stock</th></tr>
+    <tr><td>Camiseta Oficial</td><td>35</td><td>120</td></tr>
+    <tr><td>Bufanda</td><td>15</td><td>200</td></tr>
+  </table>
+</section>
+
 <script>
-const datos = {
-  "SOCIOS": [{"SOCIO":"Ejemplo","CUOTA":100}],
-  "PATROCINADORES": [{"EMPRESA":"Ejemplo","IMPORTE":5000}],
-  "MERCHANDISING": [],
-  "ENTRADAS": [],
-  "ESTADIO": [],
-  "PLANTILLA": [],
-  "RESUMEN": []
-};
-
-const menu = document.getElementById('menu');
-const cont = document.getElementById('contenido');
-
-Object.keys(datos).forEach((seccion,i)=>{
-  const b=document.createElement('button');
-  b.textContent=seccion;
-  b.onclick=()=>mostrar(seccion);
-  menu.appendChild(b);
-
-  const s=document.createElement('section');
-  s.id=seccion;
-  if(i===0) s.classList.add('active');
-  cont.appendChild(s);
-});
-
-function mostrar(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  const sec=document.getElementById(id);
-  sec.classList.add('active');
-  render(id);
-}
-
-function render(id){
-  const sec=document.getElementById(id);
-  const filas=datos[id];
-  if(!filas || filas.length===0){sec.innerHTML='<p>No hay datos</p>';return;}
-  let html='<table><tr>';
-  Object.keys(filas[0]).forEach(k=>html+=`<th>${k}</th>`);
-  html+='</tr>';
-  filas.forEach(f=>{html+='<tr>';Object.values(f).forEach(v=>html+=`<td>${v}</td>`);html+='</tr>'});
-  html+='</table>';
-  sec.innerHTML=html;
-}
-
-render(Object.keys(datos)[0]);
+  function mostrar(id){
+    document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
 </script>
 </body>
 </html>
-
