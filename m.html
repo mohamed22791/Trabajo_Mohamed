@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>FC Alameda - Aplicación Local</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f8;
+        }
+        header {
+            background: #0b5ed7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background: #083c8c;
+            display: flex;
+            justify-content: center;
+        }
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        nav button:hover {
+            background: #0b5ed7;
+        }
+        section {
+            display: none;
+            padding: 20px;
+        }
+        section.active {
+            display: block;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #e9ecef;
+        }
+        input, select, button {
+            padding: 8px;
+            margin: 5px 0;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>FC Alameda</h1>
+    <p>Aplicación Local de Gestión (sin internet)</p>
+</header>
+
+<nav>
+    <button onclick="mostrarSeccion('jugadores')">Jugadores</button>
+    <button onclick="mostrarSeccion('partidos')">Partidos</button>
+    <button onclick="mostrarSeccion('finanzas')">Finanzas</button>
+</nav>
+
+<section id="jugadores" class="active">
+    <h2>Gestión de Jugadores</h2>
+    <input id="nombreJugador" placeholder="Nombre">
+    <input id="edadJugador" type="number" placeholder="Edad">
+    <input id="posicionJugador" placeholder="Posición">
+    <button onclick="agregarJugador()">Agregar</button>
+    <table id="tablaJugadores">
+        <tr><th>Nombre</th><th>Edad</th><th>Posición</th></tr>
+    </table>
+</section>
+
+<section id="partidos">
+    <h2>Calendario de Partidos</h2>
+    <input type="date" id="fechaPartido">
+    <input id="rivalPartido" placeholder="Rival">
+    <select id="localVisitante">
+        <option>Local</option>
+        <option>Visitante</option>
+    </select>
+    <button onclick="agregarPartido()">Agregar</button>
+    <table id="tablaPartidos">
+        <tr><th>Fecha</th><th>Rival</th><th>Condición</th></tr>
+    </table>
+</section>
+
+<section id="finanzas">
+    <h2>Finanzas</h2>
+    <input id="concepto" placeholder="Concepto">
+    <input id="monto" type="number" placeholder="Monto">
+    <select id="tipo">
+        <option>Ingreso</option>
+        <option>Gasto</option>
+    </select>
+    <button onclick="agregarMovimiento()">Registrar</button>
+    <table id="tablaFinanzas">
+        <tr><th>Concepto</th><th>Monto</th><th>Tipo</th></tr>
+    </table>
+</section>
+
+<script>
+    let jugadores = JSON.parse(localStorage.getItem('jugadores')) || [];
+    let partidos = JSON.parse(localStorage.getItem('partidos')) || [];
+    let finanzas = JSON.parse(localStorage.getItem('finanzas')) || [];
+
+    function mostrarSeccion(id) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+    }
+
+    function guardar() {
+        localStorage.setItem('jugadores', JSON.stringify(jugadores));
+        localStorage.setItem('partidos', JSON.stringify(partidos));
+        localStorage.setItem('finanzas', JSON.stringify(finanzas));
+    }
+
+    function render() {
+        tablaJugadores.innerHTML = '<tr><th>Nombre</th><th>Edad</th><th>Posición</th></tr>';
+        jugadores.forEach(j => tablaJugadores.innerHTML += `<tr><td>${j.n}</td><td>${j.e}</td><td>${j.p}</td></tr>`);
+
+        tablaPartidos.innerHTML = '<tr><th>Fecha</th><th>Rival</th><th>Condición</th></tr>';
+        partidos.forEach(p => tablaPartidos.innerHTML += `<tr><td>${p.f}</td><td>${p.r}</td><td>${p.c}</td></tr>`);
+
+        tablaFinanzas.innerHTML = '<tr><th>Concepto</th><th>Monto</th><th>Tipo</th></tr>';
+        finanzas.forEach(f => tablaFinanzas.innerHTML += `<tr><td>${f.c}</td><td>${f.m} €</td><td>${f.t}</td></tr>`);
+    }
+
+    function agregarJugador() {
+        jugadores.push({ n: nombreJugador.value, e: edadJugador.value, p: posicionJugador.value });
+        guardar(); render(); nombreJugador.value = edadJugador.value = posicionJugador.value = '';
+    }
+
+    function agregarPartido() {
+        partidos.push({ f: fechaPartido.value, r: rivalPartido.value, c: localVisitante.value });
+        guardar(); render(); fechaPartido.value = rivalPartido.value = '';
+    }
+
+    function agregarMovimiento() {
+        finanzas.push({ c: concepto.value, m: monto.value, t: tipo.value });
+        guardar(); render(); concepto.value = monto.value = '';
+    }
+
+    render();
+</script>
+
+</body>
+</html>
