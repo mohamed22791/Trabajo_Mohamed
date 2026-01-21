@@ -2,127 +2,110 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>FC Alameda | Gestión Completa</title>
+<title>FC Alameda | App Local Editable</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  body{margin:0;font-family:Arial,sans-serif;background:#f0f4f8;color:#333}
-  header{background:linear-gradient(135deg,#0b5ed7,#083c8c);color:white;padding:30px;text-align:center}
-  header h1{margin:0;font-size:2.5em}
-  header p{margin:5px 0 0;font-size:1.2em}
-  nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
-  nav button{background:none;border:none;color:white;padding:15px 25px;font-size:16px;font-weight:bold;cursor:pointer;transition:0.3s}
-  nav button:hover{background:#0b5ed7}
-  section{display:none;padding:30px;max-width:1200px;margin:auto}
-  section.active{display:block}
-  h2{color:#0b5ed7;margin-bottom:15px;text-align:center}
-  table{width:100%;border-collapse:collapse;background:white;margin-top:15px;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
-  th,td{border:1px solid #ddd;padding:10px;text-align:center}
-  th{background:#e9ecef}
-  tr:hover{background:#f1f1f1}
-  footer{background:#083c8c;color:white;text-align:center;padding:20px;margin-top:30px}
+body{margin:0;font-family:Arial;background:#f0f4f8;color:#333}
+header{background:linear-gradient(135deg,#0b5ed7,#083c8c);color:white;padding:25px;text-align:center}
+nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
+nav button{background:none;border:none;color:white;padding:15px 20px;font-size:15px;font-weight:bold;cursor:pointer}
+nav button:hover{background:#0b5ed7}
+section{display:none;padding:25px;max-width:1200px;margin:auto}
+section.active{display:block}
+h2{text-align:center;color:#0b5ed7}
+table{width:100%;border-collapse:collapse;background:white;margin-top:15px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+th,td{border:1px solid #ccc;padding:8px;text-align:center}
+th{background:#e9ecef}
+form{background:white;padding:15px;margin-top:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+input,select,button{padding:8px;margin:5px}
+button{background:#0b5ed7;color:white;border:none;cursor:pointer}
+button:hover{background:#083c8c}
+footer{text-align:center;background:#083c8c;color:white;padding:15px;margin-top:30px}
 </style>
 </head>
 <body>
 <header>
-  <h1>FC Alameda</h1>
-  <p>Aplicación local de gestión completa del club</p>
+<h1>FC Alameda</h1>
+<p>Aplicación LOCAL editable desde la web</p>
 </header>
 <nav>
-  <button onclick="mostrar('presupuesto')">Presupuesto</button>
-  <button onclick="mostrar('jugadores')">Jugadores</button>
-  <button onclick="mostrar('partidos')">Partidos</button>
-  <button onclick="mostrar('trofeos')">Trofeos</button>
-  <button onclick="mostrar('merchandising')">Merchandising</button>
+<button onclick="mostrar('jugadores')">Jugadores</button>
+<button onclick="mostrar('partidos')">Partidos</button>
+<button onclick="mostrar('trofeos')">Trofeos</button>
+<button onclick="mostrar('merchandising')">Merchandising</button>
 </nav>
 
-<section id="presupuesto" class="active">
-<h2>Presupuesto del Equipo</h2>
-<table>
-<tr><th>Concepto</th><th>Importe (€)</th></tr>
-<tr><td>Presupuesto Total</td><td>250.000</td></tr>
-<tr><td>Salarios Jugadores</td><td>150.000</td></tr>
-<tr><td>Gastos Generales</td><td>60.000</td></tr>
-<tr><td>Beneficio</td><td>40.000</td></tr>
-<tr><td>Entradas</td><td>20.000</td></tr>
-<tr><td>Patrocinadores</td><td>30.000</td></tr>
-</table>
-</section>
-
-<section id="jugadores">
-<h2>Plantilla - 22 Jugadores</h2>
-<table>
-<tr><th>Nombre</th><th>Posición</th><th>Salario Anual (€)</th></tr>
-<tr><td>Juan Pérez</td><td>Portero</td><td>8.000</td></tr>
-<tr><td>Carlos Gómez</td><td>Portero</td><td>7.500</td></tr>
-<tr><td>Andrés Ruiz</td><td>Defensa</td><td>6.000</td></tr>
-<tr><td>Diego Fernández</td><td>Defensa</td><td>6.500</td></tr>
-<tr><td>Luis Martínez</td><td>Defensa</td><td>6.200</td></tr>
-<tr><td>David López</td><td>Defensa</td><td>6.000</td></tr>
-<tr><td>Mario Sánchez</td><td>Centrocampista</td><td>7.000</td></tr>
-<tr><td>Javier Torres</td><td>Centrocampista</td><td>7.200</td></tr>
-<tr><td>Francisco Díaz</td><td>Centrocampista</td><td>7.000</td></tr>
-<tr><td>Pablo Ramírez</td><td>Centrocampista</td><td>7.100</td></tr>
-<tr><td>Sergio Morales</td><td>Centrocampista</td><td>7.300</td></tr>
-<tr><td>Alberto Jiménez</td><td>Delantero</td><td>10.000</td></tr>
-<tr><td>Raúl Castro</td><td>Delantero</td><td>9.500</td></tr>
-<tr><td>Fernando Ortiz</td><td>Delantero</td><td>9.800</td></tr>
-<tr><td>Ricardo Vázquez</td><td>Delantero</td><td>9.600</td></tr>
-<tr><td>Adrián Núñez</td><td>Delantero</td><td>9.700</td></tr>
-<tr><td>Óscar Herrera</td><td>Delantero</td><td>9.500</td></tr>
-<tr><td>Antonio Rubio</td><td>Delantero</td><td>9.400</td></tr>
-<tr><td>Jorge León</td><td>Centrocampista</td><td>7.000</td></tr>
-<tr><td>Iván Campos</td><td>Defensa</td><td>6.200</td></tr>
-<tr><td>Víctor Peña</td><td>Centrocampista</td><td>7.100</td></tr>
-<tr><td>Raquel Silva</td><td>Delantera</td><td>8.500</td></tr>
-</table>
+<section id="jugadores" class="active">
+<h2>Jugadores</h2>
+<table id="tablaJugadores"></table>
+<form onsubmit="addJugador(event)">
+<input placeholder="Nombre" id="jn" required>
+<input placeholder="Posición" id="jp" required>
+<input type="number" placeholder="Salario" id="js" required>
+<button>Añadir jugador</button>
+</form>
 </section>
 
 <section id="partidos">
-<h2>Calendario de Partidos</h2>
-<table>
-<tr><th>Fecha</th><th>Rival</th><th>Lugar</th></tr>
-<tr><td>10/02/2026</td><td>CF Ejemplo</td><td>Local</td></tr>
-<tr><td>17/02/2026</td><td>UD Ejemplo</td><td>Visitante</td></tr>
-<tr><td>24/02/2026</td><td>AD Modelo</td><td>Local</td></tr>
-<tr><td>03/03/2026</td><td>CD Prueba</td><td>Visitante</td></tr>
-</table>
+<h2>Partidos</h2>
+<table id="tablaPartidos"></table>
+<form onsubmit="addPartido(event)">
+<input type="date" id="pf" required>
+<input placeholder="Rival" id="pr" required>
+<select id="pl"><option>Local</option><option>Visitante</option></select>
+<button>Añadir partido</button>
+</form>
 </section>
 
 <section id="trofeos">
-<h2>Trofeos Ganados</h2>
-<table>
-<tr><th>Año</th><th>Competición</th></tr>
-<tr><td>2023</td><td>Liga Regional</td></tr>
-<tr><td>2024</td><td>Copa Comarcal</td></tr>
-<tr><td>2025</td><td>Supercopa</td></tr>
-</table>
+<h2>Trofeos</h2>
+<table id="tablaTrofeos"></table>
+<form onsubmit="addTrofeo(event)">
+<input placeholder="Año" id="ta" required>
+<input placeholder="Competición" id="tc" required>
+<button>Añadir trofeo</button>
+</form>
 </section>
 
 <section id="merchandising">
 <h2>Merchandising</h2>
-<table>
-<tr><th>Producto</th><th>Precio (€)</th><th>Stock</th></tr>
-<tr><td>Camiseta Oficial</td><td>35</td><td>120</td></tr>
-<tr><td>Bufanda</td><td>15</td><td>200</td></tr>
-<tr><td>Gorra</td><td>20</td><td>150</td></tr>
-<tr><td>Balón Oficial</td><td>40</td><td>80</td></tr>
-<tr><td>Sudadera</td><td>50</td><td>100</td></tr>
-<tr><td>Póster Equipo</td><td>10</td><td>300</td></tr>
-<tr><td>Llavero</td><td>5</td><td>500</td></tr>
-<tr><td>Chándal Completo</td><td>80</td><td>60</td></tr>
-<tr><td>Calcetines</td><td>8</td><td>250</td></tr>
-<tr><td>Botella Agua</td><td>7</td><td>180</td></tr>
-</table>
+<table id="tablaMerch"></table>
+<form onsubmit="addMerch(event)">
+<input placeholder="Producto" id="mn" required>
+<input type="number" placeholder="Precio" id="mp" required>
+<input type="number" placeholder="Stock" id="ms" required>
+<button>Añadir producto</button>
+</form>
 </section>
 
 <script>
-function mostrar(id){
-  document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+let jugadores=JSON.parse(localStorage.getItem('jugadores'))||[];
+let partidos=JSON.parse(localStorage.getItem('partidos'))||[];
+let trofeos=JSON.parse(localStorage.getItem('trofeos'))||[];
+let merch=JSON.parse(localStorage.getItem('merch'))||[];
+
+function mostrar(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+
+function render(){
+ tablaJugadores.innerHTML='<tr><th>Nombre</th><th>Posición</th><th>Salario €</th></tr>'+jugadores.map(j=>`<tr><td>${j.n}</td><td>${j.p}</td><td>${j.s}</td></tr>`).join('');
+ tablaPartidos.innerHTML='<tr><th>Fecha</th><th>Rival</th><th>Lugar</th></tr>'+partidos.map(p=>`<tr><td>${p.f}</td><td>${p.r}</td><td>${p.l}</td></tr>`).join('');
+ tablaTrofeos.innerHTML='<tr><th>Año</th><th>Competición</th></tr>'+trofeos.map(t=>`<tr><td>${t.a}</td><td>${t.c}</td></tr>`).join('');
+ tablaMerch.innerHTML='<tr><th>Producto</th><th>Precio</th><th>Stock</th></tr>'+merch.map(m=>`<tr><td>${m.n}</td><td>${m.p}</td><td>${m.s}</td></tr>`).join('');
+ localStorage.setItem('jugadores',JSON.stringify(jugadores));
+ localStorage.setItem('partidos',JSON.stringify(partidos));
+ localStorage.setItem('trofeos',JSON.stringify(trofeos));
+ localStorage.setItem('merch',JSON.stringify(merch));
 }
+
+function addJugador(e){e.preventDefault();jugadores.push({n:jn.value,p:jp.value,s:js.value});e.target.reset();render()}
+function addPartido(e){e.preventDefault();partidos.push({f:pf.value,r:pr.value,l:pl.value});e.target.reset();render()}
+function addTrofeo(e){e.preventDefault();trofeos.push({a:ta.value,c:tc.value});e.target.reset();render()}
+function addMerch(e){e.preventDefault();merch.push({n:mn.value,p:mp.value,s:ms.value});e.target.reset();render()}
+
+render();
 </script>
 <footer>
-<p>© 2026 FC Alameda - Aplicación Local de Gestión</p>
+<p>© 2026 FC Alameda - App Local Editable</p>
 </footer>
 </body>
 </html>
