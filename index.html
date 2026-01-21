@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>FC Alameda | App Local Editable</title>
+<title>FC Alameda | App Local Completa</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{margin:0;font-family:Arial;background:#f0f4f8;color:#333}
+body{margin:0;font-family:Arial;background:#eef2f7;color:#333}
 header{background:linear-gradient(135deg,#0b5ed7,#083c8c);color:white;padding:25px;text-align:center}
 nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
 nav button{background:none;border:none;color:white;padding:15px 20px;font-size:15px;font-weight:bold;cursor:pointer}
@@ -20,92 +20,77 @@ form{background:white;padding:15px;margin-top:20px;box-shadow:0 2px 8px rgba(0,0
 input,select,button{padding:8px;margin:5px}
 button{background:#0b5ed7;color:white;border:none;cursor:pointer}
 button:hover{background:#083c8c}
+img{width:50px;height:50px;object-fit:cover;border-radius:50%}
 footer{text-align:center;background:#083c8c;color:white;padding:15px;margin-top:30px}
 </style>
 </head>
 <body>
 <header>
 <h1>FC Alameda</h1>
-<p>Aplicación LOCAL editable desde la web</p>
+<p>App local editable (añadir, editar, eliminar y fotos)</p>
 </header>
 <nav>
 <button onclick="mostrar('jugadores')">Jugadores</button>
-<button onclick="mostrar('partidos')">Partidos</button>
-<button onclick="mostrar('trofeos')">Trofeos</button>
-<button onclick="mostrar('merchandising')">Merchandising</button>
+<button onclick="mostrar('merch')">Merchandising</button>
 </nav>
 
 <section id="jugadores" class="active">
 <h2>Jugadores</h2>
 <table id="tablaJugadores"></table>
 <form onsubmit="addJugador(event)">
-<input placeholder="Nombre" id="jn" required>
-<input placeholder="Posición" id="jp" required>
-<input type="number" placeholder="Salario" id="js" required>
+<input id="jn" placeholder="Nombre" required>
+<input id="jp" placeholder="Posición" required>
+<input id="js" type="number" placeholder="Salario" required>
+<input id="jf" type="file" accept="image/*">
 <button>Añadir jugador</button>
 </form>
 </section>
 
-<section id="partidos">
-<h2>Partidos</h2>
-<table id="tablaPartidos"></table>
-<form onsubmit="addPartido(event)">
-<input type="date" id="pf" required>
-<input placeholder="Rival" id="pr" required>
-<select id="pl"><option>Local</option><option>Visitante</option></select>
-<button>Añadir partido</button>
-</form>
-</section>
-
-<section id="trofeos">
-<h2>Trofeos</h2>
-<table id="tablaTrofeos"></table>
-<form onsubmit="addTrofeo(event)">
-<input placeholder="Año" id="ta" required>
-<input placeholder="Competición" id="tc" required>
-<button>Añadir trofeo</button>
-</form>
-</section>
-
-<section id="merchandising">
+<section id="merch">
 <h2>Merchandising</h2>
 <table id="tablaMerch"></table>
 <form onsubmit="addMerch(event)">
-<input placeholder="Producto" id="mn" required>
-<input type="number" placeholder="Precio" id="mp" required>
-<input type="number" placeholder="Stock" id="ms" required>
+<input id="mn" placeholder="Producto" required>
+<input id="mp" type="number" placeholder="Precio" required>
+<input id="ms" type="number" placeholder="Stock" required>
+<input id="mf" type="file" accept="image/*">
 <button>Añadir producto</button>
 </form>
 </section>
 
 <script>
 let jugadores=JSON.parse(localStorage.getItem('jugadores'))||[];
-let partidos=JSON.parse(localStorage.getItem('partidos'))||[];
-let trofeos=JSON.parse(localStorage.getItem('trofeos'))||[];
 let merch=JSON.parse(localStorage.getItem('merch'))||[];
 
 function mostrar(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 
+function imgBase64(file,cb){if(!file){cb('');return;}let r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(file)}
+
 function render(){
- tablaJugadores.innerHTML='<tr><th>Nombre</th><th>Posición</th><th>Salario €</th></tr>'+jugadores.map(j=>`<tr><td>${j.n}</td><td>${j.p}</td><td>${j.s}</td></tr>`).join('');
- tablaPartidos.innerHTML='<tr><th>Fecha</th><th>Rival</th><th>Lugar</th></tr>'+partidos.map(p=>`<tr><td>${p.f}</td><td>${p.r}</td><td>${p.l}</td></tr>`).join('');
- tablaTrofeos.innerHTML='<tr><th>Año</th><th>Competición</th></tr>'+trofeos.map(t=>`<tr><td>${t.a}</td><td>${t.c}</td></tr>`).join('');
- tablaMerch.innerHTML='<tr><th>Producto</th><th>Precio</th><th>Stock</th></tr>'+merch.map(m=>`<tr><td>${m.n}</td><td>${m.p}</td><td>${m.s}</td></tr>`).join('');
+ tablaJugadores.innerHTML='<tr><th>Foto</th><th>Nombre</th><th>Posición</th><th>Salario</th><th>Acciones</th></tr>'+
+ jugadores.map((j,i)=>`<tr><td>${j.f?'<img src="'+j.f+'">':''}</td><td contenteditable onblur="editJugador(${i},'n',this.innerText)">${j.n}</td><td contenteditable onblur="editJugador(${i},'p',this.innerText)">${j.p}</td><td contenteditable onblur="editJugador(${i},'s',this.innerText)">${j.s}</td><td><button onclick="delJugador(${i})">Eliminar</button></td></tr>`).join('');
+
+ tablaMerch.innerHTML='<tr><th>Foto</th><th>Producto</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>'+
+ merch.map((m,i)=>`<tr><td>${m.f?'<img src="'+m.f+'">':''}</td><td contenteditable onblur="editMerch(${i},'n',this.innerText)">${m.n}</td><td contenteditable onblur="editMerch(${i},'p',this.innerText)">${m.p}</td><td contenteditable onblur="editMerch(${i},'s',this.innerText)">${m.s}</td><td><button onclick="delMerch(${i})">Eliminar</button></td></tr>`).join('');
+
  localStorage.setItem('jugadores',JSON.stringify(jugadores));
- localStorage.setItem('partidos',JSON.stringify(partidos));
- localStorage.setItem('trofeos',JSON.stringify(trofeos));
  localStorage.setItem('merch',JSON.stringify(merch));
 }
 
-function addJugador(e){e.preventDefault();jugadores.push({n:jn.value,p:jp.value,s:js.value});e.target.reset();render()}
-function addPartido(e){e.preventDefault();partidos.push({f:pf.value,r:pr.value,l:pl.value});e.target.reset();render()}
-function addTrofeo(e){e.preventDefault();trofeos.push({a:ta.value,c:tc.value});e.target.reset();render()}
-function addMerch(e){e.preventDefault();merch.push({n:mn.value,p:mp.value,s:ms.value});e.target.reset();render()}
+function addJugador(e){e.preventDefault();imgBase64(jf.files[0],img=>{jugadores.push({n:jn.value,p:jp.value,s:js.value,f:img});e.target.reset();render()})}
+function editJugador(i,c,v){jugadores[i][c]=v;render()}
+function delJugador(i){if(confirm('¿Eliminar jugador?')){jugadores.splice(i,1);render()}}
+
+function addMerch(e){e.preventDefault();imgBase64(mf.files[0],img=>{merch.push({n:mn.value,p:mp.value,s:ms.value,f:img});e.target.reset();render()})}
+function editMerch(i,c,v){merch[i][c]=v;render()}
+function delMerch(i){if(confirm('¿Eliminar producto?')){merch.splice(i,1);render()}}
 
 render();
 </script>
 <footer>
-<p>© 2026 FC Alameda - App Local Editable</p>
+<p>© FC Alameda - App Local Completa</p>
 </footer>
 </body>
 </html>
+
+
