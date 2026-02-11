@@ -2,232 +2,180 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>FC Alameda - Gestión</title>
-
+<title>FC Alameda | Gestión Total</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f4f6f8;
-  margin:0;
-  padding:20px;
-}
-h1,h2{color:#0a7cff}
-section{
-  background:white;
-  padding:15px;
-  margin-bottom:20px;
-  border-radius:10px;
-  box-shadow:0 2px 5px rgba(0,0,0,.1);
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-th,td{
-  border-bottom:1px solid #ddd;
-  padding:8px;
-  text-align:left;
-}
-button{
-  background:#0a7cff;
-  color:white;
-  border:none;
-  padding:5px 10px;
-  border-radius:5px;
-  cursor:pointer;
-}
-button:hover{background:#095ec0}
-input{padding:5px;margin:3px}
-
-#autor{
-  position:fixed;
-  top:10px;
-  left:10px;
-  background:#0a7cff;
-  color:white;
-  padding:6px 12px;
-  border-radius:8px;
-  font-weight:bold;
-  z-index:999;
-}
-
-#copyright{
-  position:fixed;
-  bottom:10px;
-  right:10px;
-  font-size:12px;
-  background:#eee;
-  padding:6px 10px;
-  border-radius:6px;
-}
+body{margin:0;font-family:Arial;background:#eef2f7;color:#333}
+header{background:linear-gradient(135deg,#0b5ed7,#083c8c);color:white;padding:25px;text-align:center}
+nav{background:#083c8c;display:flex;flex-wrap:wrap;justify-content:center}
+nav button{background:none;border:none;color:white;padding:12px 16px;font-size:14px;font-weight:bold;cursor:pointer}
+nav button:hover{background:#0b5ed7}
+section{display:none;padding:25px;max-width:1300px;margin:auto}
+section.active{display:block}
+h2{text-align:center;color:#0b5ed7}
+table{width:100%;border-collapse:collapse;background:white;margin-top:15px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+th,td{border:1px solid #ccc;padding:8px;text-align:center}
+th{background:#e9ecef}
+form{background:white;padding:15px;margin-top:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+input,select,button{padding:8px;margin:5px}
+button{background:#0b5ed7;color:white;border:none;cursor:pointer}
+button:hover{background:#083c8c}
+img{width:50px;height:50px;object-fit:cover;border-radius:6px}
+.card{background:white;padding:15px;margin:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.flex{display:flex;flex-wrap:wrap;justify-content:center}
+footer{text-align:center;background:#083c8c;color:white;padding:15px;margin-top:30px}
 </style>
 </head>
-
 <body>
+<header>
+<h1>FC Alameda</h1>
+<p>Aplicación local de gestión total del club</p>
+</header>
+<nav>
+<button onclick="mostrar('resumen')">Resumen</button>
+<button onclick="mostrar('jugadores')">Jugadores</button>
+<button onclick="mostrar('partidos')">Partidos</button>
+<button onclick="mostrar('trofeos')">Trofeos</button>
+<button onclick="mostrar('socios')">Socios</button>
+<button onclick="mostrar('patro')">Patrocinadores</button>
+<button onclick="mostrar('entradas')">Entradas</button>
+<button onclick="mostrar('estadio')">Estadio</button>
+<button onclick="mostrar('merch')">Merchandising</button>
+</nav>
 
-<div id="autor">MOHAMED</div>
-
-<h1>⚽ FC Alameda - Gestión del Club</h1>
-
-<section>
-<h2>💰 Presupuesto</h2>
-<input type="number" id="presupuesto" placeholder="Presupuesto total">
-<button onclick="guardarPresupuesto()">Guardar</button>
-<p id="balance"></p>
+<section id="resumen" class="active">
+<h2>Resumen económico</h2>
+<div class="flex">
+<div class="card"><h3>Presupuesto</h3><p id="presupuesto">0 €</p></div>
+<div class="card"><h3>Gasto salarios</h3><p id="gastos">0 €</p></div>
+<div class="card"><h3>Balance</h3><p id="balance">0 €</p></div>
+</div>
+<form onsubmit="setPresupuesto(event)">
+<input id="pTotal" type="number" placeholder="Presupuesto total" required>
+<button>Guardar presupuesto</button>
+</form>
 </section>
 
-<section>
-<h2>👥 Jugadores</h2>
-<input id="jn" placeholder="Nombre">
-<input id="jp" placeholder="Posición">
-<input id="js" type="number" placeholder="Salario">
-<button onclick="addJugador()">Añadir</button>
+<section id="jugadores"><h2>Jugadores</h2><table id="tablaJugadores"></table><form onsubmit="addJugador(event)"><input id="jn" placeholder="Nombre" required><input id="jp" placeholder="Posición" required><input id="js" type="number" placeholder="Salario" required><input id="jf" type="file" accept="image/*"><button>Añadir</button></form></section>
 
-<table>
-<thead><tr><th>Nombre</th><th>Posición</th><th>Salario</th><th></th></tr></thead>
-<tbody id="jugadores"></tbody>
-</table>
-</section>
+<section id="partidos"><h2>Partidos</h2><table id="tablaPartidos"></table><form onsubmit="addPartido(event)"><input type="date" id="pf" required><input id="pr" placeholder="Rival" required><select id="pl"><option>Local</option><option>Visitante</option></select><button>Añadir</button></form></section>
 
-<section>
-<h2>📅 Partidos</h2>
-<input id="pf" placeholder="Fecha">
-<input id="pr" placeholder="Rival">
-<input id="pl" placeholder="Local/Visitante">
-<button onclick="addPartido()">Añadir</button>
-<ul id="partidos"></ul>
-</section>
+<section id="trofeos"><h2>Trofeos</h2><table id="tablaTrofeos"></table><form onsubmit="addTrofeo(event)"><input id="ta" placeholder="Año" required><input id="tc" placeholder="Competición" required><button>Añadir</button></form></section>
 
-<section>
-<h2>🏆 Trofeos</h2>
-<input id="ta" placeholder="Año">
-<input id="tc" placeholder="Competición">
-<button onclick="addTrofeo()">Añadir</button>
-<ul id="trofeos"></ul>
-</section>
+<section id="socios"><h2>Socios</h2><table id="tablaSocios"></table><form onsubmit="addSocio(event)"><input id="sn" placeholder="Nombre" required><input id="sc" type="number" placeholder="Cuota" required><button>Añadir</button></form></section>
 
-<section>
-<h2>👨‍👩‍👧‍👦 Socios</h2>
-<input id="sn" placeholder="Nombre">
-<input id="sc" type="number" placeholder="Cuota">
-<button onclick="addSocio()">Añadir</button>
-<ul id="socios"></ul>
-</section>
+<section id="patro"><h2>Patrocinadores</h2><table id="tablaPatro"></table><form onsubmit="addPatro(event)"><input id="pn" placeholder="Empresa" required><input id="pa" type="number" placeholder="Aportación" required><button>Añadir</button></form></section>
 
-<section>
-<h2>🤝 Patrocinadores</h2>
-<input id="pn" placeholder="Empresa">
-<input id="pa" type="number" placeholder="Aportación">
-<button onclick="addPatro()">Añadir</button>
-<ul id="patro"></ul>
-</section>
+<section id="entradas"><h2>Entradas</h2><table id="tablaEntradas"></table><form onsubmit="addEntrada(event)"><input id="en" placeholder="Partido" required><input id="ep" type="number" placeholder="Precio" required><input id="ev" type="number" placeholder="Vendidas" required><button>Añadir</button></form></section>
 
-<section>
-<h2>🏟️ Estadio</h2>
-<input id="en" placeholder="Nombre">
-<input id="ec" placeholder="Ciudad">
-<input id="ecap" type="number" placeholder="Capacidad">
-<button onclick="saveEstadio()">Guardar</button>
-<p id="estadio"></p>
-</section>
+<section id="estadio"><h2>Estadio</h2><form onsubmit="saveEstadio(event)"><input id="esn" placeholder="Nombre estadio"><input id="esc" placeholder="Ciudad"><input id="escap" type="number" placeholder="Capacidad"><button>Guardar</button></form><div id="infoEstadio"></div></section>
 
-<footer id="copyright">
-© 2026 FC Alameda · Todos los derechos reservados
-</footer>
+<section id="merch"><h2>Merchandising</h2><table id="tablaMerch"></table><form onsubmit="addMerch(event)"><input id="mn" placeholder="Producto" required><input id="mp" type="number" placeholder="Precio" required><input id="ms" type="number" placeholder="Stock" required><input id="mf" type="file" accept="image/*"><button>Añadir</button></form></section>
 
 <script>
-let jugadores=JSON.parse(localStorage.getItem("jugadores"))||[];
-let partidos=JSON.parse(localStorage.getItem("partidos"))||[];
-let trofeos=JSON.parse(localStorage.getItem("trofeos"))||[];
-let socios=JSON.parse(localStorage.getItem("socios"))||[];
-let patro=JSON.parse(localStorage.getItem("patro"))||[];
-let estadio=JSON.parse(localStorage.getItem("estadio"))||{};
-let presupuesto=Number(localStorage.getItem("presupuesto"))||0;
+let jugadores=JSON.parse(localStorage.getItem('jugadores'))||[
+ {n:'Álvaro Martín',p:'Portero',s:3500,f:''},
+ {n:'Iván Ruiz',p:'Portero',s:3200,f:''},
+ {n:'Carlos Gómez',p:'Defensa Central',s:3000,f:''},
+ {n:'Miguel Torres',p:'Lateral Derecho',s:2800,f:''},
+ {n:'Javier Molina',p:'Lateral Izquierdo',s:2800,f:''},
+ {n:'Sergio Ramos',p:'Defensa Central',s:3600,f:''},
+ {n:'Pablo Ortega',p:'Defensa Central',s:3000,f:''},
+ {n:'Antonio López',p:'Lateral Derecho',s:2700,f:''},
+ {n:'Rubén Sánchez',p:'Lateral Izquierdo',s:2700,f:''},
+ {n:'Daniel Fernández',p:'Mediocentro',s:3400,f:''},
+ {n:'Adrián Castro',p:'Interior Derecho',s:3100,f:''},
+ {n:'Luis Hernández',p:'Interior Izquierdo',s:3100,f:''},
+ {n:'Marcos Navarro',p:'Mediapunta',s:3700,f:''},
+ {n:'Alejandro Pérez',p:'Mediocentro Def.',s:3300,f:''},
+ {n:'Jorge Martín',p:'Interior',s:3000,f:''},
+ {n:'Víctor Muñoz',p:'Mediocentro',s:3200,f:''},
+ {n:'Raúl Jiménez',p:'Delantero',s:4200,f:''},
+ {n:'David Moreno',p:'Segundo Del.',s:3800,f:''},
+ {n:'Óscar Díaz',p:'Extremo D.',s:3600,f:''},
+ {n:'Hugo Romero',p:'Extremo I.',s:3600,f:''},
+ {n:'Cristian Vega',p:'Delantero',s:3900,f:''},
+ {n:'Nacho Suárez',p:'Delantero',s:3500,f:''}
+];
 
-document.getElementById("presupuesto").value=presupuesto;
+let partidos=JSON.parse(localStorage.getItem('partidos'))||[
+ {f:'2026-02-10',r:'CD Alameda B',l:'Local'},
+ {f:'2026-02-17',r:'Atlético Sierra',l:'Visitante'},
+ {f:'2026-02-24',r:'UD Campillo',l:'Local'}
+];
 
-function guardarPresupuesto(){
-  presupuesto=Number(presupuestoInput.value);
-  localStorage.setItem("presupuesto",presupuesto);
-  actualizar();
+let trofeos=JSON.parse(localStorage.getItem('trofeos'))||[
+ {a:'2023',c:'Liga Local'},
+ {a:'2024',c:'Copa Provincial'}
+];
+
+let socios=JSON.parse(localStorage.getItem('socios'))||[
+ {n:'Juan Pérez',c:100},
+ {n:'María López',c:100},
+ {n:'Antonio Ruiz',c:150}
+];
+
+let patro=JSON.parse(localStorage.getItem('patro'))||[
+ {n:'Construcciones Alameda',a:5000},
+ {n:'Bar El Centro',a:2000}
+];
+
+let entradas=JSON.parse(localStorage.getItem('entradas'))||[
+ {n:'FC Alameda vs CD Alameda B',p:10,v:300},
+ {n:'Atlético Sierra vs FC Alameda',p:12,v:250}
+];
+
+let merch=JSON.parse(localStorage.getItem('merch'))||[
+ {n:'Camiseta Oficial',p:25,s:120,f:''},
+ {n:'Bufanda',p:12,s:200,f:''},
+ {n:'Sudadera',p:40,s:60,f:''}
+];
+
+let estadio=JSON.parse(localStorage.getItem('estadio'))||{n:'Estadio Municipal Alameda',c:'Alameda',cap:3500};
+let presupuesto=Number(localStorage.getItem('presupuesto'))||120000;
+
+function mostrar(id){document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function img64(file,cb){if(!file){cb('');return;}let r=new FileReader();r.onload=e=>cb(e.target.result);r.readAsDataURL(file)}
+
+function render(){
+ tablaJugadores.innerHTML='<tr><th>Foto</th><th>Nombre</th><th>Posición</th><th>Salario</th><th></th></tr>'+jugadores.map((j,i)=>`<tr><td>${j.f?'<img src="'+j.f+'">':''}</td><td contenteditable onblur="jugadores[${i}].n=this.innerText;render()">${j.n}</td><td contenteditable onblur="jugadores[${i}].p=this.innerText;render()">${j.p}</td><td contenteditable onblur="jugadores[${i}].s=this.innerText;render()">${j.s}</td><td><button onclick="jugadores.splice(${i},1);render()">X</button></td></tr>`).join('');
+ tablaPartidos.innerHTML='<tr><th>Fecha</th><th>Rival</th><th>Lugar</th><th></th></tr>'+partidos.map((p,i)=>`<tr><td>${p.f}</td><td contenteditable onblur="partidos[${i}].r=this.innerText;render()">${p.r}</td><td>${p.l}</td><td><button onclick="partidos.splice(${i},1);render()">X</button></td></tr>`).join('');
+ tablaTrofeos.innerHTML='<tr><th>Año</th><th>Competición</th><th></th></tr>'+trofeos.map((t,i)=>`<tr><td>${t.a}</td><td contenteditable onblur="trofeos[${i}].c=this.innerText;render()">${t.c}</td><td><button onclick="trofeos.splice(${i},1);render()">X</button></td></tr>`).join('');
+ tablaSocios.innerHTML='<tr><th>Nombre</th><th>Cuota</th><th></th></tr>'+socios.map((s,i)=>`<tr><td contenteditable onblur="socios[${i}].n=this.innerText;render()">${s.n}</td><td contenteditable onblur="socios[${i}].c=this.innerText;render()">${s.c}</td><td><button onclick="socios.splice(${i},1);render()">X</button></td></tr>`).join('');
+ tablaPatro.innerHTML='<tr><th>Empresa</th><th>Aportación</th><th></th></tr>'+patro.map((p,i)=>`<tr><td contenteditable onblur="patro[${i}].n=this.innerText;render()">${p.n}</td><td contenteditable onblur="patro[${i}].a=this.innerText;render()">${p.a}</td><td><button onclick="patro.splice(${i},1);render()">X</button></td></tr>`).join('');
+ tablaEntradas.innerHTML='<tr><th>Partido</th><th>Precio</th><th>Vendidas</th><th></th></tr>'+entradas.map((e,i)=>`<tr><td contenteditable onblur="entradas[${i}].n=this.innerText;render()">${e.n}</td><td contenteditable onblur="entradas[${i}].p=this.innerText;render()">${e.p}</td><td contenteditable onblur="entradas[${i}].v=this.innerText;render()">${e.v}</td><td><button onclick="entradas.splice(${i},1);render()">X</button></td></tr>`).join('');
+ tablaMerch.innerHTML='<tr><th>Foto</th><th>Producto</th><th>Precio</th><th>Stock</th><th></th></tr>'+merch.map((m,i)=>`<tr><td>${m.f?'<img src="'+m.f+'">':''}</td><td contenteditable onblur="merch[${i}].n=this.innerText;render()">${m.n}</td><td contenteditable onblur="merch[${i}].p=this.innerText;render()">${m.p}</td><td contenteditable onblur="merch[${i}].s=this.innerText;render()">${m.s}</td><td><button onclick="merch.splice(${i},1);render()">X</button></td></tr>`).join('');
+ infoEstadio.innerHTML=`<p><b>${estadio.n||''}</b> ${estadio.c||''} Capacidad: ${estadio.cap||''}</p>`;
+ let gasto=jugadores.reduce((t,j)=>t+Number(j.s||0),0);
+ gastos.innerText=gasto+' €';
+ presupuesto&& (presupuestoEl.innerText=presupuesto);
+ balance.innerText=(presupuesto-gasto)+' €';
+ localStorage.setItem('jugadores',JSON.stringify(jugadores));
+ localStorage.setItem('partidos',JSON.stringify(partidos));
+ localStorage.setItem('trofeos',JSON.stringify(trofeos));
+ localStorage.setItem('socios',JSON.stringify(socios));
+ localStorage.setItem('patro',JSON.stringify(patro));
+ localStorage.setItem('entradas',JSON.stringify(entradas));
+ localStorage.setItem('merch',JSON.stringify(merch));
+ localStorage.setItem('estadio',JSON.stringify(estadio));
+ localStorage.setItem('presupuesto',presupuesto);
+ document.getElementById('presupuesto').innerText=presupuesto+' €';
 }
 
-function addJugador(){
-  jugadores.push({n:jn.value,p:jp.value,s:Number(js.value)});
-  localStorage.setItem("jugadores",JSON.stringify(jugadores));
-  jn.value=jp.value=js.value="";
-  actualizar();
-}
+function setPresupuesto(e){e.preventDefault();presupuesto=Number(pTotal.value);render();e.target.reset()}
+function addJugador(e){e.preventDefault();img64(jf.files[0],img=>{jugadores.push({n:jn.value,p:jp.value,s:js.value,f:img});render();e.target.reset()})}
+function addPartido(e){e.preventDefault();partidos.push({f:pf.value,r:pr.value,l:pl.value});render();e.target.reset()}
+function addTrofeo(e){e.preventDefault();trofeos.push({a:ta.value,c:tc.value});render();e.target.reset()}
+function addSocio(e){e.preventDefault();socios.push({n:sn.value,c:sc.value});render();e.target.reset()}
+function addPatro(e){e.preventDefault();patro.push({n:pn.value,a:pa.value});render();e.target.reset()}
+function addEntrada(e){e.preventDefault();entradas.push({n:en.value,p:ep.value,v:ev.value});render();e.target.reset()}
+function addMerch(e){e.preventDefault();img64(mf.files[0],img=>{merch.push({n:mn.value,p:mp.value,s:ms.value,f:img});render();e.target.reset()})}
+function saveEstadio(e){e.preventDefault();estadio={n:esn.value,c:esc.value,cap:escap.value};render()}
 
-function addPartido(){
-  partidos.push(pf.value+" - "+pr.value+" ("+pl.value+")");
-  localStorage.setItem("partidos",JSON.stringify(partidos));
-  pf.value=pr.value=pl.value="";
-  actualizar();
-}
-
-function addTrofeo(){
-  trofeos.push(ta.value+" - "+tc.value);
-  localStorage.setItem("trofeos",JSON.stringify(trofeos));
-  ta.value=tc.value="";
-  actualizar();
-}
-
-function addSocio(){
-  socios.push(sn.value+" ("+sc.value+"€)");
-  localStorage.setItem("socios",JSON.stringify(socios));
-  sn.value=sc.value="";
-  actualizar();
-}
-
-function addPatro(){
-  patro.push(pn.value+" ("+pa.value+"€)");
-  localStorage.setItem("patro",JSON.stringify(patro));
-  pn.value=pa.value="";
-  actualizar();
-}
-
-function saveEstadio(){
-  estadio={n:en.value,c:ec.value,cap:ecap.value};
-  localStorage.setItem("estadio",JSON.stringify(estadio));
-  actualizar();
-}
-
-function actualizar(){
-  jugadoresEl.innerHTML="";
-  let gasto=0;
-  jugadores.forEach((j,i)=>{
-    gasto+=j.s;
-    jugadoresEl.innerHTML+=`<tr>
-      <td contenteditable onblur="j.n=this.innerText;saveJ()">${j.n}</td>
-      <td contenteditable onblur="j.p=this.innerText;saveJ()">${j.p}</td>
-      <td contenteditable onblur="j.s=Number(this.innerText);saveJ()">${j.s}</td>
-      <td><button onclick="jugadores.splice(${i},1);saveJ()">❌</button></td>
-    </tr>`;
-  });
-  balance.innerText="Gasto en salarios: "+gasto+" € | Balance: "+(presupuesto-gasto)+" €";
-
-  partidosEl.innerHTML=partidos.map((p,i)=>`<li>${p} <button onclick="partidos.splice(${i},1);save('partidos',partidos)">❌</button></li>`).join("");
-  trofeosEl.innerHTML=trofeos.map((t,i)=>`<li>${t} <button onclick="trofeos.splice(${i},1);save('trofeos',trofeos)">❌</button></li>`).join("");
-  sociosEl.innerHTML=socios.map((s,i)=>`<li>${s} <button onclick="socios.splice(${i},1);save('socios',socios)">❌</button></li>`).join("");
-  patroEl.innerHTML=patro.map((p,i)=>`<li>${p} <button onclick="patro.splice(${i},1);save('patro',patro)">❌</button></li>`).join("");
-
-  estadioEl.innerText=estadio.n+" - "+estadio.c+" ("+estadio.cap+")";
-}
-
-function saveJ(){localStorage.setItem("jugadores",JSON.stringify(jugadores));actualizar();}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v));actualizar();}
-
-const presupuestoInput=document.getElementById("presupuesto");
-const jugadoresEl=document.getElementById("jugadores");
-const partidosEl=document.getElementById("partidos");
-const trofeosEl=document.getElementById("trofeos");
-const sociosEl=document.getElementById("socios");
-const patroEl=document.getElementById("patro");
-const estadioEl=document.getElementById("estadio");
-
-actualizar();
+render();
 </script>
-
+<footer>
+<p>FC Alameda · App local profesional</p>
+</footer>
 </body>
 </html>
