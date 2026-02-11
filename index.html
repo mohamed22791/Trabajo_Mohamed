@@ -216,4 +216,78 @@ footer{
 </form>
 </section>
 
-<section id="partidos"><h2>Partidos</h2><
+<section id="partidos"><h2>Partidos</h2><table id="tablaPartidos"></table>
+<form onsubmit="addPartido(event)">
+<input type="date" id="pf" required>
+<input id="pr" placeholder="Rival" required>
+<select id="pl"><option>Local</option><option>Visitante</option></select>
+<button>Añadir</button>
+</form>
+</section>
+
+<section id="trofeos"><h2>Trofeos</h2><table id="tablaTrofeos"></table>
+<form onsubmit="addTrofeo(event)">
+<input id="ta" placeholder="Año" required>
+<input id="tc" placeholder="Competición" required>
+<button>Añadir</button>
+</form>
+</section>
+
+<section id="socios"><h2>Socios</h2><table id="tablaSocios"></table>
+<form onsubmit="addSocio(event)">
+<input id="sn" placeholder="Nombre" required>
+<input id="sc" type="number" placeholder="Cuota" required>
+<button>Añadir</button>
+</form>
+</section>
+
+<section id="patro"><h2>Patrocinadores</h2><table id="tablaPatro"></table>
+<form onsubmit="addPatro(event)">
+<input id="pn" placeholder="Empresa" required>
+<input id="pa" type="number" placeholder="Aportación" required>
+<button>Añadir</button>
+</form>
+</section>
+
+<section id="entradas"><h2>Entradas</h2><table id="tablaEntradas"></table>
+<form onsubmit="addEntrada(event)">
+<input id="en" placeholder="Partido" required>
+<input id="ep" type="number" placeholder="Precio" required>
+<input id="ev" type="number" placeholder="Vendidas" required>
+<button>Añadir</button>
+</form>
+</section>
+
+<section id="estadio"><h2>Estadio</h2>
+<form onsubmit="saveEstadio(event)">
+<input id="esn" placeholder="Nombre estadio">
+<input id="esc" placeholder="Ciudad">
+<input id="escap" type="number" placeholder="Capacidad">
+<button>Guardar</button>
+</form>
+<div id="infoEstadio"></div>
+</section>
+
+<section id="merch"><h2>Merchandising</h2><table id="tablaMerch"></table>
+<form onsubmit="addMerch(event)">
+<input id="mn" placeholder="Producto" required>
+<input id="mp" type="number" placeholder="Precio" required>
+<input id="ms" type="number" placeholder="Stock" required>
+<input id="mf" type="file" accept="image/*">
+<button>Añadir</button>
+</form>
+</section>
+
+<footer>
+<p>© <span id="year"></span> FC Alameda · Todos los derechos reservados</p>
+</footer>
+
+<div id="watermark">Mohamed ©</div>
+
+<script>
+document.getElementById('year').innerText=new Date().getFullYear();
+</script>
+
+<!-- TU SCRIPT ORIGINAL SIGUE FUNCIONANDO IGUAL -->
+</body>
+</html>
